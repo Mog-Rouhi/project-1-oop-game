@@ -16,12 +16,35 @@ class Game {
 
     start(){
         this.player = new Player();
+        this.guards = new Guards();
 
         this.attachEventListeners();
         this.detectCollision();
         this.getBoxPosition("item3");
         this.getBoxPosition("grid-container");
+        this.moveBack();
+
     }
+
+    moveBack(){
+        let timer = 0;
+        const intervalIdUp = setInterval(()=>{
+        this.guards.moveUp();
+        timer++;
+        if(timer === 180){
+        clearInterval(intervalIdUp)
+        let count = 0;
+        const intervalIdDown = setInterval(()=>{
+            this.guards.moveDown();
+            count++;
+            if(count === 180){
+               clearInterval(intervalIdDown)
+               this.moveBack();
+            }
+        },20)
+        }
+    },20);
+ }
 
     attachEventListeners(){
         document.addEventListener("keydown", (event) => {
@@ -124,9 +147,39 @@ class Player {
 // guards
 
 class Guards {
+    constructor(){
+        this.width = 50;
+        this.height = 30;
+        this.positionX = 670;
+        this.positionY = 40;
 
-}
+        this.domElement = null;
+        this.createDomElement();
+        this.moveUp();
+        this.moveDown();
+    }
 
+    createDomElement(){
+        this.domElement = document.createElement('div');
+        this.domElement.id = "guards";
+        this.domElement.style.width = this.width + "px";
+        this.domElement.style.height = this.height + "px";
+        this.domElement.style.bottom = this.positionY + "px";
+        this.domElement.style.left = this.positionX + "px";
+        const boardElm = document.getElementById("grid-container");
+        boardElm.appendChild(this.domElement);
+    }
+
+   moveUp(){
+        this.positionY += 1;
+        this.domElement.style.bottom = this.positionY + "px";
+    }
+
+    moveDown(){
+        this.positionY -= 1;
+        this.domElement.style.bottom = this.positionY + "px";
+    }
+}  
 
 const game = new Game();
 game.start();
