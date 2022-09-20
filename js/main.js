@@ -1,8 +1,13 @@
 class Game {
     constructor(){
         this.player = null;
-        this.guards = [];
+        this.guardsArr = [];
         this.boxPosition = [];
+        this.planks = [];
+        this.score = 0;
+
+        this.timer; 
+        this.timeLeft = 60;
         
         const box3 = document.getElementById("item3");
         const box4 = document.getElementById("item4");
@@ -16,30 +21,72 @@ class Game {
 
     start(){
         this.player = new Player();
-        this.guards = new Guards();
 
+        const newGuard = new Guards();
+        this.guardsArr.push(newGuard);
+        
         this.attachEventListeners();
-        this.detectCollision();
+
+        const firstPlankton = new Plankton();
+        this.planks.push(firstPlankton);
+        
+        const secondPlankton = new Plankton();
+        this.planks.push(secondPlankton);
+
+        const thirdPlankton = new Plankton();
+        this.planks.push(thirdPlankton);
+
+        this.timeCountDown()       
+
         this.getBoxPosition("item3");
         this.getBoxPosition("grid-container");
-        this.moveBack();
 
+        this.guardsArr.forEach((newGuard) => {
+        this.moveBack(newGuard);
+
+        setInterval(() => {
+            this.detectCollisionGuard(newGuard);
+            this.detectCollisionBox();
+            this.winAlert();
+            });
+        }, 60);
+
+        setInterval(() => {
+            this.planks.forEach((plankInstance) => {          
+                if(this.detectCollisionWithPlank(plankInstance)){
+                    this.removePlank(plankInstance);
+                    this.totalScore();
+                }
+            })
+        }, 100);
     }
 
-    moveBack(){
-        let timer = 0;
+    timeCountDown(){
+        let timer = document.getElementById("timer");
+        this.timer = setInterval(() => {
+            this.timeLeft--;
+            if(this.timeLeft >= 0){
+                timer.innerText = this.timeLeft;
+            }else {
+            cancelInterval(this.timer);
+            }
+        }, 1000);        
+    }
+
+    moveBack(newGuard){
+        let time = 0;
         const intervalIdUp = setInterval(()=>{
-        this.guards.moveUp();
-        timer++;
-        if(timer === 180){
+        newGuard.moveGuardUp();
+        time++;
+        if(time === 180){
         clearInterval(intervalIdUp)
         let count = 0;
         const intervalIdDown = setInterval(()=>{
-            this.guards.moveDown();
+            newGuard.moveGuardDown();
             count++;
             if(count === 180){
                clearInterval(intervalIdDown)
-               this.moveBack();
+               this.moveBack(newGuard);
             }
         },20)
         }
@@ -63,25 +110,75 @@ class Game {
     getBoxPosition(id){
         let elem = document.getElementById(`${id}`);
         let rect = elem.getBoundingClientRect();
-        console.log("x: "+ rect.x);
-        console.log("y: "+ rect.y);
+       // console.log("x: "+ rect.x);
+       // console.log("y: "+ rect.y);
         this.boxPosition = [rect.x, rect.y]
         return this.boxPosition;
     }
 
-    detectCollision(){
+    detectCollisionBox(){
+        //console.log(this.player.positionX);
+        //console.log("y", this.player.positionY);
+        //horizontal walls
+        if (this.player.positionX >= 0 && this.player.positionX < 270 && this.player.positionY < 270)
+        {this.player.positionY = 270;}
+        if (this.player.positionX >= 270 && this.player.positionX < 530 && this.player.positionY < 150)
+        {this.player.positionY = 150;}
+        if (this.player.positionX >= 530 && this.player.positionX < 800 && this.player.positionY > 225)
+        {this.player.positionY = 225;}
+        // vertical walls    
+        if (this.player.positionY < 270 && this.player.positionY >= 150 && this.player.positionX < 290)
+        {this.player.positionX = 290;}
+        if (this.player.positionY < 150 && this.player.positionY > 0 && this.player.positionX < 540)
+        {this.player.positionX = 540;}
+        if (this.player.positionY > 230 && this.player.positionY < 400 && this.player.positionX > 480)
+        {this.player.positionX = 480;}
+    }   
+
+    detectCollisionGuard(newGuard){
         if (
-            this.player.positionX < this.boxPosition[0] + this.boxes[0].width &&
-            this.player.positionX + this.player.width > this.boxPosition[0] &&
-            this.player.positionY < this.boxPosition[1] + this.boxes[0].height &&
-            this.player.height + this.player.positionY > this.boxPosition[1]
+            this.player.positionX < newGuard.positionX + newGuard.width &&
+            this.player.positionX + this.player.width > newGuard.positionX &&
+            this.player.positionY < newGuard.positionY + newGuard.height &&
+            this.player.height + this.player.positionY > newGuard.positionY
         ) {
-            console.log("game over....")
+           // console.log("game over....")
             location.href = 'gameover.html';
         }
     }
-}
 
+  detectCollisionWithPlank(plankInstance){
+        if (
+            this.player.positionX < plankInstance.positionX + plankInstance.width &&
+            this.player.positionX + this.player.width > plankInstance.positionX &&
+            this.player.positionY < plankInstance.positionY + plankInstance.height &&
+            this.player.height + this.player.positionY > plankInstance.positionY
+        ) {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    removePlank(plankInstance){
+            plankInstance.domElement.remove();
+            this.planks.splice(this.planks.indexOf(plankInstance));     
+        }
+
+    totalScore(){
+        let scoreText = document.getElementById("score");
+                this.score += 500;
+                scoreText.innerText = this.score;
+                console.log(this.score);
+    }
+
+    winAlert(){
+        if (this.player.positionX === 770){
+            alert("you win");
+        }       
+    }
+
+}
 
 // player
 
@@ -113,7 +210,8 @@ class Player {
         } else {
             this.positionX -= 5;
             this.domElement.style.left = this.positionX + "px";
-        }      
+        } 
+        return this.positionX;   
     } 
 
     moveRight(){
@@ -123,6 +221,7 @@ class Player {
             this.positionX += 5;
             this.domElement.style.left = this.positionX + "px";
         }
+        return this.positionX;
     }
 
     moveUp(){
@@ -132,6 +231,7 @@ class Player {
             this.positionY += 5;
             this.domElement.style.bottom = this.positionY + "px";
         }
+        return this.positionY;
     }
 
     moveDown(){
@@ -141,8 +241,21 @@ class Player {
             this.positionY -= 5;
             this.domElement.style.bottom = this.positionY + "px";
         }
+        return this.positionY;
     }
+
+    shooting(){
+        let shoot = document.querySelector(".bubbles");
+        while(this.bubbles["count"]){
+            shoot.addEventListener("click", () =>{
+                this.bubbles["positionX"]++;
+                this.bubbles["count"]--;
+            })
+        }
+    }
+    
 }
+
 
 // guards
 
@@ -152,34 +265,62 @@ class Guards {
         this.height = 30;
         this.positionX = 670;
         this.positionY = 40;
-
         this.domElement = null;
-        this.createDomElement();
-        this.moveUp();
-        this.moveDown();
+        this.createDomElement();        
+       // this.moveUp();
+       // this.moveDown();
     }
 
     createDomElement(){
         this.domElement = document.createElement('div');
-        this.domElement.id = "guards";
+        this.domElement.className = "guards";
         this.domElement.style.width = this.width + "px";
         this.domElement.style.height = this.height + "px";
         this.domElement.style.bottom = this.positionY + "px";
         this.domElement.style.left = this.positionX + "px";
         const boardElm = document.getElementById("grid-container");
-        boardElm.appendChild(this.domElement);
+        boardElm.appendChild(this.domElement);       
     }
 
-   moveUp(){
+   moveGuardUp(){
         this.positionY += 1;
         this.domElement.style.bottom = this.positionY + "px";
+        return this.positionY;
     }
 
-    moveDown(){
+    moveGuardDown(){
         this.positionY -= 1;
         this.domElement.style.bottom = this.positionY + "px";
+        return this.positionY;
     }
 }  
+
+// planktons
+
+class Plankton {
+    constructor(){
+        this.width = 40;
+        this.height = 20;
+        this.positionX = Math.round(Math.random() * 100 + 400);
+        this.positionY = Math.round(Math.random() * 100 + 240);
+
+        this.domElement = null;
+        this.createPlanktonDom();
+    }
+
+    createPlanktonDom(){
+    console.log("plankton");
+    this.domElement = document.createElement('div');
+    this.domElement.className = "plank";
+    this.domElement.style.width = this.width + "px";
+    this.domElement.style.height = this.height + "px";
+    this.domElement.style.bottom = this.positionY + "px";
+    this.domElement.style.left = this.positionX + "px";
+    const boardElement = document.getElementById("grid-container");
+    boardElement.appendChild(this.domElement);
+    }    
+
+}
 
 const game = new Game();
 game.start();
