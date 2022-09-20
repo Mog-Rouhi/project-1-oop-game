@@ -1,13 +1,14 @@
 class Game {
     constructor(){
         this.player = null;
+        this.bubble = null;
         this.guardsArr = [];
         this.boxPosition = [];
         this.planks = [];
         this.score = 0;
 
         this.timer; 
-        this.timeLeft = 60;
+        this.timeLeft = 30;
         
         const box3 = document.getElementById("item3");
         const box4 = document.getElementById("item4");
@@ -36,7 +37,8 @@ class Game {
         const thirdPlankton = new Plankton();
         this.planks.push(thirdPlankton);
 
-        this.timeCountDown()       
+        this.timeCountDown();
+              
 
         this.getBoxPosition("item3");
         this.getBoxPosition("grid-container");
@@ -78,13 +80,13 @@ class Game {
         const intervalIdUp = setInterval(()=>{
         newGuard.moveGuardUp();
         time++;
-        if(time === 180){
+        if(time === 60){
         clearInterval(intervalIdUp)
         let count = 0;
         const intervalIdDown = setInterval(()=>{
             newGuard.moveGuardDown();
             count++;
-            if(count === 180){
+            if(count === 60){
                clearInterval(intervalIdDown)
                this.moveBack(newGuard);
             }
@@ -105,7 +107,19 @@ class Game {
                 this.player.moveDown();
             }
         });
+
+        document.addEventListener("click", () => {
+            let shoot = document.getElementById("bubble");
+            shoot.style.display = "block";
+            setInterval(()=>{
+                setTimeout(() =>{
+                    shoot.style.display = "none";
+                }, 200)         
+            }, 400)
+        })
+        
     }
+
 
     getBoxPosition(id){
         let elem = document.getElementById(`${id}`);
@@ -117,8 +131,6 @@ class Game {
     }
 
     detectCollisionBox(){
-        //console.log(this.player.positionX);
-        //console.log("y", this.player.positionY);
         //horizontal walls
         if (this.player.positionX >= 0 && this.player.positionX < 270 && this.player.positionY < 270)
         {this.player.positionY = 270;}
@@ -190,18 +202,30 @@ class Player {
         this.positionY = 300;
 
         this.domElement = null;
+        this.domElement2 = null;
         this.createDomElement();
     }
 
     createDomElement(){
         this.domElement = document.createElement("div");
+        this.domElement2 = document.createElement("div");
         this.domElement.id = "sam";
+        this.domElement2.id = "bubble"
         this.domElement.style.width = this.width + "px";
+        this.domElement2.style.width = this.width  + "px";
+
         this.domElement.style.height = this.height + "px";
+        this.domElement2.style.height = this.height  + "px";
+
         this.domElement.style.left = this.positionX + "px";
+        this.domElement2.style.left = this.positionX + 100 + "px";
+
         this.domElement.style.bottom = this.positionY + "px";
+        this.domElement2.style.bottom = this.positionY + "px";
+
         const boardElm = document.getElementById("grid-container");
         boardElm.appendChild(this.domElement);
+        boardElm.appendChild(this.domElement2);
     }
 
     moveLeft(){
@@ -210,6 +234,8 @@ class Player {
         } else {
             this.positionX -= 5;
             this.domElement.style.left = this.positionX + "px";
+            this.domElement2.style.left = this.positionX + 100 + "px";
+
         } 
         return this.positionX;   
     } 
@@ -220,6 +246,8 @@ class Player {
         } else {
             this.positionX += 5;
             this.domElement.style.left = this.positionX + "px";
+            this.domElement2.style.left = this.positionX + 100 + "px";
+
         }
         return this.positionX;
     }
@@ -230,6 +258,7 @@ class Player {
         } else {
             this.positionY += 5;
             this.domElement.style.bottom = this.positionY + "px";
+            this.domElement2.style.bottom = this.positionY + "px";
         }
         return this.positionY;
     }
@@ -240,19 +269,11 @@ class Player {
         } else {
             this.positionY -= 5;
             this.domElement.style.bottom = this.positionY + "px";
+            this.domElement2.style.bottom = this.positionY + "px";
         }
         return this.positionY;
     }
 
-    shooting(){
-        let shoot = document.querySelector(".bubbles");
-        while(this.bubbles["count"]){
-            shoot.addEventListener("click", () =>{
-                this.bubbles["positionX"]++;
-                this.bubbles["count"]--;
-            })
-        }
-    }
     
 }
 
@@ -283,13 +304,13 @@ class Guards {
     }
 
    moveGuardUp(){
-        this.positionY += 1;
+        this.positionY += 3;
         this.domElement.style.bottom = this.positionY + "px";
         return this.positionY;
     }
 
     moveGuardDown(){
-        this.positionY -= 1;
+        this.positionY -= 3;
         this.domElement.style.bottom = this.positionY + "px";
         return this.positionY;
     }

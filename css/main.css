@@ -1,3 +1,23 @@
+#game-page{
+  background-color: rgb(124, 196, 240);
+}
+
+#game-page p{
+  font-family: consolas;
+  font-size: 32px;
+  /*color: rgb(219, 178, 128);*/
+  color: rgb(206, 115, 4);
+  font-weight: bolder;
+}
+
+#first-line{
+  margin: 150px auto 0px 650px;
+}
+
+#second-line{
+  margin: 0px auto 0px 650px;
+}
+
 #sam {
     background-image: url("../img/fish.png");
     background-repeat: no-repeat;
@@ -6,6 +26,17 @@
     z-index: 1;
     position: absolute;
     border: none;
+}
+
+#bubble {
+  background-image: url("../img/shoot.png");
+  display: none;
+  background-repeat: no-repeat;
+  background-size: cover;
+ /* background-color: rgb(188, 11, 62); */
+  z-index: 1;
+  position: absolute;
+  border: none;
 }
 
 .guards {
@@ -45,7 +76,10 @@
     '4 5 6'
     '7 8 9';
   gap: 0px;
-  background-color: rgb(154, 210, 242);
+  background-image: url("../img/seabed.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+
   padding: 10px;
   position: absolute;
     margin: auto;
@@ -71,19 +105,17 @@
     border-width: 25px 0px 0px 0px
   }
   #item3 {
-    background-image: url("../img/block.jpg");
+    background-image: url("../img/block3.png");
     background-repeat: no-repeat;
     background-size: cover;
     border-style: solid;
-    background-color: rgb(51, 146, 101);
     border-width: 25px 25px 0px 0px
   }
   #item4 {
-    background-image: url("../img/block.jpg");
+    background-image: url("../img/block4.png");
     background-repeat: no-repeat;
     background-size: cover;
     border-style: solid;
-    background-color: rgb(23, 138, 85);
     border-width: 0px 0px 0px 25px
   }
   #item5 {
@@ -95,22 +127,97 @@
     border-width: 0px 25px 0px 0px
   }
   #item7 {
-    background-image: url("../img/block.jpg");
+    background-image: url("../img/block7.png");
     background-repeat: no-repeat;
     background-size: cover;
     border-style: solid;
-    background-color: rgb(35, 151, 97);
     border-width: 0px 0px 25px 25px
   }
   #item8 {
-    background-image: url("../img/block-rev.jpg");
+    background-image: url("../img/block8.png");
     background-repeat: no-repeat;
     background-size: cover;
     border-style: solid;
-    background-color: rgb(14, 134, 78);
     border-width: 0px 0px 25px 0px
   }
   #item9 {
     border-style: solid;
     border-width: 0px 0px 25px 0px
   }
+
+
+
+  /* gameover and start pages*/
+
+
+  .page{
+    background-color: rgb(124, 196, 240);
+    position: relative;
+    text-align: center;
+    font-family: consolas;
+    font-size: 32px;
+    color: rgb(206, 115, 4);
+    font-weight: bolder;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .screen{
+    margin-top: 100px;
+  }
+
+  #go{
+    border: none;
+    outline: none;
+    border-radius:5px;
+    padding: 20px 100px;
+    font-size: 40px;
+    color: rgb(217, 6, 185);
+    opacity: 0.5;
+
+  }
+ #go:hover{
+  background-color: rgb(237, 203, 176);
+  color: rgb(126, 59, 207);
+ }
+ #play-again:hover{
+  background-color: rgb(237, 203, 176);
+  color: rgb(126, 59, 207);
+ }
+ 
+ #img-start{
+  width: 550px;
+  height: 500px;
+  background-image: url("../img/start.png");
+  align-items: center;
+  background-repeat: no-repeat;
+  border-radius: 10px;
+ }
+
+
+ #img-end{
+  width: 550px;
+  height: 500px;
+  background-image: url("../img/cancer.png");
+  align-items: center;
+  background-repeat: no-repeat;
+  border-radius: 10px;
+ }
+
+
+ .gameover{
+  margin: 0px;
+ }
+
+ #play-again{
+  border: none;
+  outline: none;
+  border-radius:5px;
+  padding: 20px 50px;
+  font-size: 35px;
+  color: rgb(217, 6, 185);
+  opacity: 0.6;
+  margin: 10px 0px 0px 40px;
+
+}
