@@ -41,11 +41,13 @@ class Game {
         const thirdPlankton = new Plankton();
         this.planks.push(thirdPlankton);
 
+     
+
         this.timeCountDown();
               
 
-        this.getBoxPosition("item3");
-        this.getBoxPosition("grid-container");
+       // this.getBoxPosition("item3");
+       // this.getBoxPosition("grid-container");
 
         this.guardsArr.forEach((newGuard) => {
         this.moveBack(newGuard);
@@ -53,7 +55,6 @@ class Game {
         setInterval(() => {
             this.detectCollisionGuard(newGuard);
             this.detectCollisionBox();
-            this.winAlert();
             });
         }, 60);
 
@@ -65,6 +66,20 @@ class Game {
                 }
             })
         }, 100);
+
+        setInterval(() => {
+            if(this.player.positionX > 420 && this.player.positionY > 250){
+                setInterval(() => {
+                    const follow = document.querySelector("#follow-guard");
+                    follow.style.bottom = this.player.positionY + "px";
+                    follow.style.left = this.player.positionX + "px";
+                    setTimeout(() =>{
+                        location.href = 'gameover.html';
+                    }, 500)
+                }, 700)       
+                
+            }
+            }, 60);
     }
 
     timeCountDown(){
@@ -137,14 +152,14 @@ class Game {
     }
 
 
-    getBoxPosition(id){
+   /* getBoxPosition(id){
         let elem = document.getElementById(`${id}`);
         let rect = elem.getBoundingClientRect();
        // console.log("x: "+ rect.x);
        // console.log("y: "+ rect.y);
         this.boxPosition = [rect.x, rect.y]
         return this.boxPosition;
-    }
+    }*/
 
     detectCollisionBox(){
         //horizontal walls
@@ -190,9 +205,9 @@ class Game {
 
     removePlank(plankInstance){
             plankInstance.domElement.remove();
-            var audio = new Audio("../audio/planki.wav");
-            audio.play();
-            this.planks.splice(this.planks.indexOf(plankInstance));     
+            var coin = new Audio("../audio/planki.wav");
+            coin.play();
+            this.planks.splice(this.planks.indexOf(plankInstance), 1);     
         }
 
     totalScore(){
@@ -201,6 +216,8 @@ class Game {
                 scoreText.innerText = this.score;
                 console.log(this.score);
     }
+
+
 /*
     winAlert(){
         const winAlert = document.getElementById("win-alert")
@@ -306,8 +323,11 @@ class Guards {
         this.width = 50;
         this.height = 30;
         this.positionX = 670;
+        this.positionXX = 490;
         this.positionY = 40;
+        this.positionYY = 330;
         this.domElement = null;
+        this.domElement2 = null; // second enemy
         this.createDomElement();        
        // this.moveUp();
        // this.moveDown();
@@ -315,13 +335,27 @@ class Guards {
 
     createDomElement(){
         this.domElement = document.createElement('div');
+        this.domElement2 = document.createElement('div');
+
         this.domElement.className = "guards";
+        this.domElement2.className = "guards";
+        this.domElement2.id = "follow-guard";
+
         this.domElement.style.width = this.width + "px";
+        this.domElement2.style.width = this.width + "px";
+
         this.domElement.style.height = this.height + "px";
+        this.domElement2.style.height = this.height + "px";
+
         this.domElement.style.bottom = this.positionY + "px";
+        this.domElement2.style.bottom = this.positionYY + "px";
+
         this.domElement.style.left = this.positionX + "px";
+        this.domElement2.style.left = this.positionXX + "px";
+
         const boardElm = document.getElementById("grid-container");
-        boardElm.appendChild(this.domElement);       
+        boardElm.appendChild(this.domElement);  
+        boardElm.appendChild(this.domElement2);     
     }
 
    moveGuardUp(){
@@ -335,6 +369,7 @@ class Guards {
         this.domElement.style.bottom = this.positionY + "px";
         return this.positionY;
     }
+
 }  
 
 // planktons
@@ -351,7 +386,6 @@ class Plankton {
     }
 
     createPlanktonDom(){
-    console.log("plankton");
     this.domElement = document.createElement('div');
     this.domElement.className = "plank";
     this.domElement.style.width = this.width + "px";
