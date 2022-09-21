@@ -8,7 +8,7 @@ class Game {
         this.score = 0;
 
         this.timer; 
-        this.timeLeft = 30;
+        this.timeLeft = 20;
         
         const box3 = document.getElementById("item3");
         const box4 = document.getElementById("item4");
@@ -67,9 +67,16 @@ class Game {
         let timer = document.getElementById("timer");
         this.timer = setInterval(() => {
             this.timeLeft--;
-            if(this.timeLeft >= 0){
+            if(this.timeLeft > 0 && this.player.positionX < 760){
                 timer.innerText = this.timeLeft;
-            }else {
+            }
+            if(this.player.positionX >= 760 && this.timeLeft > 0){ 
+                const winAlert = document.getElementById("win-alert")
+                winAlert.style.display = "block";
+                cancelInterval(this.timer);
+            }
+            if(this.player.positionX < 770 && this.timeLeft === 0){
+            location.href = 'gameover.html';
             cancelInterval(this.timer);
             }
         }, 1000);        
@@ -183,12 +190,15 @@ class Game {
                 scoreText.innerText = this.score;
                 console.log(this.score);
     }
-
+/*
     winAlert(){
+        const winAlert = document.getElementById("win-alert")
         if (this.player.positionX === 770){
-            alert("you win");
+            winAlert.style.display = "block";
+            //alert("you win");
         }       
     }
+*/
 
 }
 

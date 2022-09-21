@@ -9,10 +9,11 @@
 </head>
 
 <body id="game-page">
-    <p id="first-line">You have: <span id="timer">30</span> seconds to Go!</p>
+    <p id="first-line">You have: <span id="timer">20</span> seconds to Go!</p>
     <p id="second-line">Your Score is: <span id="score">0</span></p>
         
     <div id="board"></div>
+    
     
     <div id="grid-container">
         <div id="item1"></div>
@@ -24,6 +25,12 @@
         <div id="item7"></div>  
         <div id="item8"></div>
         <div id="item9"></div>
+    </div>
+
+    <div id="win-alert">
+        <p id="win-message">Well done!</p>
+        <button id="next-level" onclick="document.location='game.html'">Next level</button>
+        <div id="win-image"></div>
     </div>
     
     <script src="./js/main.js"></script>
