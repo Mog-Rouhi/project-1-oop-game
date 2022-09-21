@@ -21,6 +21,10 @@ class Game {
     }
 
     start(){
+
+        var audio = new Audio("../audio/background-music.wav");
+        audio.play();
+
         this.player = new Player();
 
         const newGuard = new Guards();
@@ -72,6 +76,8 @@ class Game {
             }
             if(this.player.positionX >= 760 && this.timeLeft > 0){ 
                 const winAlert = document.getElementById("win-alert")
+                let win = new Audio("../audio/win.wav");
+                win.play();
                 winAlert.style.display = "block";
                 cancelInterval(this.timer);
             }
@@ -118,6 +124,9 @@ class Game {
         document.addEventListener("click", () => {
             let shoot = document.getElementById("bubble");
             shoot.style.display = "block";
+            var audio = new Audio("../audio/bubbling.wav");
+            audio.play();
+
             setInterval(()=>{
                 setTimeout(() =>{
                     shoot.style.display = "none";
@@ -166,7 +175,7 @@ class Game {
         }
     }
 
-  detectCollisionWithPlank(plankInstance){
+    detectCollisionWithPlank(plankInstance){
         if (
             this.player.positionX < plankInstance.positionX + plankInstance.width &&
             this.player.positionX + this.player.width > plankInstance.positionX &&
@@ -181,6 +190,8 @@ class Game {
 
     removePlank(plankInstance){
             plankInstance.domElement.remove();
+            var audio = new Audio("../audio/planki.wav");
+            audio.play();
             this.planks.splice(this.planks.indexOf(plankInstance));     
         }
 
