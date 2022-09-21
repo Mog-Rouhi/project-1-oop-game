@@ -1,31 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
-    <title>sam's fish</title>
-    <link rel="stylesheet" href="./css/main.css">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>start-game</title>
+        <link rel="stylesheet" href="./css/main.css">
+    </head>
 
-<body id="game-page">
-    <p id="first-line">You have: <span id="timer">30</span> seconds to Go!</p>
-    <p id="second-line">Your Score is: <span id="score">0</span></p>
+    <body class="page">
         
-    <div id="board"></div>
-    
-    <div id="grid-container">
-        <div id="item1"></div>
-        <div id="item2"></div>
-        <div id="item3"></div>  
-        <div id="item4"></div>
-        <div id="item5"></div>
-        <div id="item6"></div>
-        <div id="item7"></div>  
-        <div id="item8"></div>
-        <div id="item9"></div>
-    </div>
-    
-    <script src="./js/main.js"></script>
-</body>
+        <div id="start-screen" class="screen" style="display:block">
+            <h1 id="start-go">Ready?</h1>
+            
+            <div id="img-start"><button id="go" onclick="document.location='game.html'">Go!</button></div>
+        </div>
+        
+
+        <script src="../js/main.js"></script>
+    </body>
 </html>
