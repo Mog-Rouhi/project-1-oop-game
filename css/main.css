@@ -11,11 +11,15 @@
 }
 
 #first-line{
-  margin: 150px auto 0px 650px;
+  margin: auto;
+  text-align: center;
+  margin-top: 10vh;
 }
 
 #second-line{
-  margin: 0px auto 0px 650px;
+ /* margin: 0px auto 0px 650px; */
+  margin: auto;
+  text-align: center;
 }
 
 #sam {
@@ -164,7 +168,7 @@
   }
 
   .screen{
-    margin-top: 100px;
+    margin-top: 7vh;
   }
 
   #go{
