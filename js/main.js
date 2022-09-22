@@ -143,8 +143,8 @@ class Game {
                 cancelInterval(this.timer);
             }
             if(this.player.positionX < 770 && this.timeLeft === 0){
-            location.href = 'gameover.html';
-            cancelInterval(this.timer);
+                location.href = 'gameover.html';
+                cancelInterval(this.timer);
             }
         }, 1000);        
     }
