@@ -6,10 +6,15 @@
   font-family: consolas;
   font-size: 32px;
   /*color: rgb(219, 178, 128);*/
-  color: rgb(206, 115, 4);
+  color: rgb(206, 115, 4); 
   font-weight: bolder;
 }
 
+#heading-lines{
+  display: flex;
+  justify-items: center;
+  flex-direction: column;
+}
 #first-line{
   margin: auto;
   text-align: center;

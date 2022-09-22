@@ -6,6 +6,7 @@ class Game {
         this.boxPosition = [];
         this.planks = [];
         this.score = 0;
+        this.interval1;
 
         this.timer; 
         this.timeLeft = 20;
@@ -41,18 +42,12 @@ class Game {
         const thirdPlankton = new Plankton();
         this.planks.push(thirdPlankton);
 
-     
-
         this.timeCountDown();
               
-
-       // this.getBoxPosition("item3");
-       // this.getBoxPosition("grid-container");
-
         this.guardsArr.forEach((newGuard) => {
         this.moveBack(newGuard);
 
-        setInterval(() => {
+       this.interval1 = setInterval(() => {
             this.detectCollisionGuard(newGuard);
             this.detectCollisionBox();
             });
@@ -68,19 +63,70 @@ class Game {
         }, 100);
 
         setInterval(() => {
-            if(this.player.positionX > 420 && this.player.positionY > 250){
+            if(this.player.positionX > 390 && this.player.positionY > 230){
                 setInterval(() => {
                     const follow = document.querySelector("#follow-guard");
                     follow.style.bottom = this.player.positionY + "px";
                     follow.style.left = this.player.positionX + "px";
                     setTimeout(() =>{
-                        location.href = 'gameover.html';
-                    }, 500)
-                }, 700)       
-                
-            }
+                    location.href = 'gameover.html';
+                    }, 100)
+                }, 100)               
+              }
             }, 60);
+
+        setInterval(() => {
+            this.detectCollisionShootTarget()
+          }, 60)
     }
+
+    detectCollisionShootTarget(){
+            let target1 = document.getElementById("follow-guard");
+            let target2 = document.getElementById("door-guard");
+            let shoot = document.querySelector("#bubble");
+
+            let positionXShoot = Number(shoot.style.left.replace("px", ""));
+            let positionYShoot = Number(shoot.style.bottom.replace("px", ""));
+
+            let positionXTarget1 = 0;
+            let positionYTarget1 = 0;
+
+            let positionXTarget2 = 0;
+            let positionYTarget2 = 0;
+
+            if (target1){
+                positionXTarget1 = Number(target1.style.left.replace("px", ""));
+                positionYTarget1 = Number(target1.style.bottom.replace("px", ""));
+            }
+            if (target2){
+                positionXTarget2 = Number(target2.style.left.replace("px", ""));
+                positionYTarget2 = Number(target2.style.bottom.replace("px", ""));
+            }
+            if (
+                positionXShoot < positionXTarget1 + 50 &&
+                positionXShoot + 50 > positionXTarget1 &&
+                positionYShoot < positionYTarget1 + 30 &&
+                30 + positionYShoot > positionYTarget1 &&
+                shoot.style.display === "block"
+            ) {
+                shoot = document.querySelector("#bubble");
+                target1.remove();
+                this.totalScore();
+            }
+            if (
+                positionXShoot < positionXTarget2 + 50 &&
+                positionXShoot + 50 > positionXTarget2 &&
+                positionYShoot < positionYTarget2 + 30 &&
+                30 + positionYShoot > positionYTarget2 &&
+                shoot.style.display === "block"
+            ) {
+                shoot = document.querySelector("#bubble");
+                target2.remove();
+                clearInterval(this.interval1);
+                this.totalScore();
+            }    
+        } 
+        
 
     timeCountDown(){
         let timer = document.getElementById("timer");
@@ -136,30 +182,29 @@ class Game {
             }
         });
 
-        document.addEventListener("click", () => {
-            let shoot = document.getElementById("bubble");
-            shoot.style.display = "block";
-            var audio = new Audio("./audio/bubbling.wav");
-            audio.play();
+        document.addEventListener("keydown", (e) => {
+            if(
+                e.key == " " ||
+                e.code == "Space" ||      
+                e.keyCode == 32 
+            ){
+                let shoot = document.getElementById("bubble");
+                shoot.style.display = "block";
+                var audio = new Audio("./audio/bubbling.wav");
+                audio.play();
+            }             
+        })  
 
-            setInterval(()=>{
-                setTimeout(() =>{
-                    shoot.style.display = "none";
-                }, 200)         
-            }, 400)
-        })
-        
+         document.addEventListener("keyup", (e) => {
+            if(
+                e.key == " " ||
+                e.code == "Space" ||      
+                e.keyCode == 32 
+            ){
+                let shoot = document.getElementById("bubble");
+                shoot.style.display = "none";}            
+        })     
     }
-
-
-   /* getBoxPosition(id){
-        let elem = document.getElementById(`${id}`);
-        let rect = elem.getBoundingClientRect();
-       // console.log("x: "+ rect.x);
-       // console.log("y: "+ rect.y);
-        this.boxPosition = [rect.x, rect.y]
-        return this.boxPosition;
-    }*/
 
     detectCollisionBox(){
         //horizontal walls
@@ -185,7 +230,6 @@ class Game {
             this.player.positionY < newGuard.positionY + newGuard.height &&
             this.player.height + this.player.positionY > newGuard.positionY
         ) {
-           // console.log("game over....")
             location.href = 'gameover.html';
         }
     }
@@ -216,19 +260,8 @@ class Game {
                 scoreText.innerText = this.score;
                 console.log(this.score);
     }
-
-
-/*
-    winAlert(){
-        const winAlert = document.getElementById("win-alert")
-        if (this.player.positionX === 770){
-            winAlert.style.display = "block";
-            //alert("you win");
-        }       
-    }
-*/
-
 }
+
 
 // player
 
@@ -249,6 +282,7 @@ class Player {
         this.domElement2 = document.createElement("div");
         this.domElement.id = "sam";
         this.domElement2.id = "bubble"
+        this.domElement2.style.display = "none";
         this.domElement.style.width = this.width + "px";
         this.domElement2.style.width = this.width  + "px";
 
@@ -285,7 +319,6 @@ class Player {
             this.positionX += 5;
             this.domElement.style.left = this.positionX + "px";
             this.domElement2.style.left = this.positionX + 100 + "px";
-
         }
         return this.positionX;
     }
@@ -310,9 +343,7 @@ class Player {
             this.domElement2.style.bottom = this.positionY + "px";
         }
         return this.positionY;
-    }
-
-    
+    } 
 }
 
 
@@ -327,10 +358,8 @@ class Guards {
         this.positionY = 40;
         this.positionYY = 330;
         this.domElement = null;
-        this.domElement2 = null; // second enemy
+        this.domElement2 = null;
         this.createDomElement();        
-       // this.moveUp();
-       // this.moveDown();
     }
 
     createDomElement(){
@@ -339,6 +368,7 @@ class Guards {
 
         this.domElement.className = "guards";
         this.domElement2.className = "guards";
+        this.domElement.id = "door-guard";
         this.domElement2.id = "follow-guard";
 
         this.domElement.style.width = this.width + "px";
@@ -369,8 +399,8 @@ class Guards {
         this.domElement.style.bottom = this.positionY + "px";
         return this.positionY;
     }
-
 }  
+
 
 // planktons
 
@@ -395,7 +425,6 @@ class Plankton {
     const boardElement = document.getElementById("grid-container");
     boardElement.appendChild(this.domElement);
     }    
-
 }
 
 const game = new Game();
