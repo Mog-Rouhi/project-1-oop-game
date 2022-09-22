@@ -22,8 +22,8 @@ class Game {
 
     start(){
 
-        //var audio = new Audio("./audio/background-music.wav");
-        //audio.play();
+        var audio = new Audio("./audio/background-music.wav");
+        audio.play();
 
         this.player = new Player();
 
