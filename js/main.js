@@ -22,7 +22,7 @@ class Game {
 
     start(){
 
-        //var audio = new Audio("../audio/background-music.wav");
+        //var audio = new Audio("./audio/background-music.wav");
         //audio.play();
 
         this.player = new Player();
@@ -91,7 +91,7 @@ class Game {
             }
             if(this.player.positionX >= 760 && this.timeLeft > 0){ 
                 const winAlert = document.getElementById("win-alert")
-                let win = new Audio("../audio/win.wav");
+                let win = new Audio("./audio/win.wav");
                 win.play();
                 winAlert.style.display = "block";
                 cancelInterval(this.timer);
@@ -139,7 +139,7 @@ class Game {
         document.addEventListener("click", () => {
             let shoot = document.getElementById("bubble");
             shoot.style.display = "block";
-            var audio = new Audio("../audio/bubbling.wav");
+            var audio = new Audio("./audio/bubbling.wav");
             audio.play();
 
             setInterval(()=>{
@@ -205,7 +205,7 @@ class Game {
 
     removePlank(plankInstance){
             plankInstance.domElement.remove();
-            var coin = new Audio("../audio/planki.wav");
+            var coin = new Audio("./audio/planki.wav");
             coin.play();
             this.planks.splice(this.planks.indexOf(plankInstance), 1);     
         }
