@@ -1,0 +1,42 @@
+
+
+# Sam's Little Fish
+<br />
+
+## Description
+---
+<br />
+
+Sam's little fish is trying to scape and save himself from the crabs' trap.  
+**An OOP game built with web technologies (html, css, javascript) and DOM manipulation.**  
+<br />
+
+## How to play  
+---
+<br />
+
+- Move Sam's fish with arrow keys  
+
+- Shoot bubbles with space key to kill the crabs  
+
+- Collect/eat the planktons  
+
+- And leave before time's up!  
+<br />
+
+<img src="./img/screen-shots/screen-shot-1.png" alt="screen-shot-1" width="400"/> 
+
+<br />
+
+## DEMO
+---
+https://mog-rouhi.github.io/project-1-oop-game/
+
+<br />
+
+## Further Improvements
+---
+<br />
+
+- Implement customizable difficulty options. 
+- Build further levels.
