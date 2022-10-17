@@ -32,7 +32,7 @@ Find the live game [here](https://mog-rouhi.github.io/project-1-oop-game/)
 <br />
 
 <p float="center">
-  <img src="./img/screen-shots/screen-shot-1.png" alt="screen-shot-1" style="width=98%;" /> 
+  <img src="./img/screen-shots/screen-shot-1.png" alt="screen-shot-1" style="width=97%;" /> 
 </p>
 
 <br/>
