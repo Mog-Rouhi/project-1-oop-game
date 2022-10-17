@@ -19,9 +19,6 @@ Sam's little fish is trying to scape and save himself from the crabs' trap.
 - And leave before time's up!  
 <br />
 
-<img src="./img/screen-shots/screen-shot-1.png" alt="screen-shot-1" width="400"/> 
-
-
 ## DEMO
 https://mog-rouhi.github.io/project-1-oop-game/
 
@@ -32,3 +29,10 @@ https://mog-rouhi.github.io/project-1-oop-game/
 
 - Implement customizable difficulty options. 
 - Build further levels.
+<br />
+
+<img src="./img/screen-shots/screen-shot-1.png" alt="screen-shot-1" width="1000"/> 
+<img src="./img/screen-shots/screen-shot-2.png" alt="screen-shot-1" width="500"/> 
+<img src="./img/screen-shots/screen-shot-3.png" alt="screen-shot-1" width="500"/> 
+
+
