@@ -20,7 +20,7 @@ Sam's little fish is trying to scape and save himself from the crabs' trap.
 <br />
 
 ## DEMO
-https://mog-rouhi.github.io/project-1-oop-game/
+Find the live game [here] (https://mog-rouhi.github.io/project-1-oop-game/)
 
 <br />
 
@@ -31,10 +31,13 @@ https://mog-rouhi.github.io/project-1-oop-game/
 - Build further levels.
 <br />
 
-<img src="./img/screen-shots/screen-shot-1.png" alt="screen-shot-1" width=100%/> 
 <p float="left">
-<img src="./img/screen-shots/screen-shot-2.png" alt="screen-shot-1" width=50%/> 
-<img src="./img/screen-shots/screen-shot-3.png" alt="screen-shot-1" width=50%/> 
+  <img src="./img/screen-shots/screen-shot-1.png" alt="screen-shot-1" style="width=100%;" /> 
+</p>
+
+<p float="left">
+  <img src="./img/screen-shots/screen-shot-2.png" alt="screen-shot-1" style="width=50%;"/> 
+  <img src="./img/screen-shots/screen-shot-3.png" alt="screen-shot-1" style="width=50%;"/> 
 </p>
 
 
