@@ -31,12 +31,12 @@ Find the live game [here](https://mog-rouhi.github.io/project-1-oop-game/)
 - Build further levels.
 <br />
 
-<p float="left">
+<p float="center">
   <img src="./img/screen-shots/screen-shot-1.png" alt="screen-shot-1" style="width=100%;" /> 
 </p>
 
 <br/>
-<p float="left">
+<p float="center">
   <img src="./img/screen-shots/screen-shot-2.png" alt="screen-shot-1" style="width:49%;"/>     <img src="./img/screen-shots/screen-shot-3.png" alt="screen-shot-1" style="width:49%;"/> 
 </p>
 
