@@ -31,8 +31,10 @@ https://mog-rouhi.github.io/project-1-oop-game/
 - Build further levels.
 <br />
 
-<img src="./img/screen-shots/screen-shot-1.png" alt="screen-shot-1" width="1000"/> 
-<img src="./img/screen-shots/screen-shot-2.png" alt="screen-shot-1" width="500"/> 
-<img src="./img/screen-shots/screen-shot-3.png" alt="screen-shot-1" width="500"/> 
+<img src="./img/screen-shots/screen-shot-1.png" alt="screen-shot-1" width=100%/> 
+<p float="left">
+<img src="./img/screen-shots/screen-shot-2.png" alt="screen-shot-1" width=50%/> 
+<img src="./img/screen-shots/screen-shot-3.png" alt="screen-shot-1" width=50%/> 
+</p>
 
 
