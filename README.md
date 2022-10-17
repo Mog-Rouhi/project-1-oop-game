@@ -37,8 +37,16 @@ Find the live game [here](https://mog-rouhi.github.io/project-1-oop-game/)
 
 <br/>
 <p float="left">
-  <img src="./img/screen-shots/screen-shot-2.png" alt="screen-shot-1" style="width=50%;"/><img src="./img/screen-shots/screen-shot-3.png" alt="screen-shot-1" style="width=50%;"/> 
+  <img class="image" src="./img/screen-shots/screen-shot-2.png" alt="screen-shot-1" style="width=50%;"/><img class="image" src="./img/screen-shots/screen-shot-3.png" alt="screen-shot-1" style="width=50%;"/> 
 </p>
 
-|![First Image]<img src="./img/screen-shots/screen-shot-2.png" alt="screen-shot-1" style="width=50%;"/>|![Second Image]<img src="./img/screen-shots/screen-shot-3.png" alt="screen-shot-1" style="width=50%;"/>|
+<style>
+  .img {
+    display: inline-block;
+  }
+  img.image {
+    width: 49%;
+    display: inline-block;
+  }
+</style>
 
