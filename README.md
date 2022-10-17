@@ -40,4 +40,5 @@ Find the live game [here](https://mog-rouhi.github.io/project-1-oop-game/)
   <img src="./img/screen-shots/screen-shot-2.png" alt="screen-shot-1" style="width=50%;"/><img src="./img/screen-shots/screen-shot-3.png" alt="screen-shot-1" style="width=50%;"/> 
 </p>
 
+|![First Image]<img src="./img/screen-shots/screen-shot-2.png" alt="screen-shot-1" style="width=50%;"/>|![Second Image]<img src="./img/screen-shots/screen-shot-3.png" alt="screen-shot-1" style="width=50%;"/>|
 
